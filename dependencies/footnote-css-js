@@ -1,0 +1,1172 @@
+<style>
+Components /
+Footnotes
+
+Theme: 
+default
+Info page
+Framework: 
+No framework
+Copy:
+
+HTML
+
+CSS
+
+JS
+View code
+
+Download
+
+
+
+
+
+
+
+/* -------------------------------- 
+
+File#: _2_footnotes
+Title: Footnotes
+Descr: A list of notes placed at the bottom of a text component, and linked to elements within the article for quick access
+Usage: codyhouse.co/license
+
+-------------------------------- */
+/* reset */
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+
+/* component */
+.fc4-text-component--has-footnotes {
+  counter-reset: footnotes;
+}
+
+.footnotes {
+  border-top: 1px solid hsl(var(--fc4-color-contrast-lower-hsl));
+}
+
+.footnotes-link, .footnotes__back-link {
+  counter-increment: footnotes;
+  font-size: 0.75em;
+  vertical-align: super;
+}
+
+.footnotes-link::before {
+  content: "[" counter(footnotes) "]";
+}
+
+.footnotes__back-link::before {
+  content: "[";
+}
+.footnotes__back-link::after {
+  content: "]";
+}
+
+.footnotes-link:target, .footnotes__item:target {
+  outline: 2px solid hsl(var(--fc4-color-primary-hsl));
+  outline-offset: 2px;
+}
+
+/* utility classes */
+.fc4-text-sm {
+  font-size: var(--fc4-text-sm);
+}
+
+.fc4-margin-top-xl {
+  margin-top: var(--fc4-space-xl);
+}
+
+.fc4-text-component :where(h1, h2, h3, h4) {
+  line-height: var(--fc4-heading-line-height, 1.2);
+  margin-top: calc(var(--fc4-space-md) * var(--fc4-space-multiplier, 1));
+  margin-bottom: calc(var(--fc4-space-sm) * var(--fc4-space-multiplier, 1));
+}
+
+.fc4-text-component :where(p, blockquote, ul li, ol li) {
+  line-height: var(--fc4-body-line-height, 1.4);
+}
+
+.fc4-text-component :where(ul, ol, p, blockquote, .fc4-text-component__block) {
+  margin-bottom: calc(var(--fc4-space-sm) * var(--fc4-space-multiplier, 1));
+}
+
+.fc4-text-component :where(ul, ol) {
+  padding-left: 1.25em;
+}
+
+.fc4-text-component ul :where(ul, ol), .fc4-text-component ol :where(ul, ol) {
+  padding-left: 1em;
+  margin-bottom: 0;
+}
+
+.fc4-text-component ul {
+  list-style-type: disc;
+}
+
+.fc4-text-component ol {
+  list-style-type: decimal;
+}
+
+.fc4-text-component img {
+  display: block;
+  margin: 0 auto;
+}
+
+.fc4-text-component figcaption {
+  margin-top: calc(var(--fc4-space-xs) * var(--fc4-space-multiplier, 1));
+  font-size: var(--fc4-text-sm);
+  text-align: center;}
+
+.fc4-text-component em {
+  font-style: italic;
+}
+
+.fc4-text-component strong {
+  font-weight: bold;
+}
+
+.fc4-text-component s {
+  text-decoration: line-through;
+}
+
+.fc4-text-component u {
+  text-decoration: underline;
+}
+
+.fc4-text-component mark {
+  background-color: hsla(var(--fc4-color-accent-hsl), 0.2);
+  color: inherit;
+}
+
+.fc4-text-component blockquote {
+  padding-left: 1em;
+  border-left: 4px solid hsl(var(--fc4-color-contrast-lower-hsl));
+  font-style: italic;
+}
+
+.fc4-text-component hr {
+  margin: calc(var(--fc4-space-md) * var(--fc4-space-multiplier, 1)) auto;
+  background: hsl(var(--fc4-color-contrast-lower-hsl));
+  height: 1px;
+}
+
+.fc4-text-component > *:first-child {
+  margin-top: 0;
+}
+
+.fc4-text-component > *:last-child {
+  margin-bottom: 0;
+}
+
+.fc4-text-component.fc4-line-height-xs {
+  --fc4-heading-line-height: 1;
+  --fc4-body-line-height: 1.1;
+}
+
+.fc4-text-component.fc4-line-height-sm {
+  --fc4-heading-line-height: 1.1;
+  --fc4-body-line-height: 1.2;
+}
+
+.fc4-text-component.fc4-line-height-md {
+  --fc4-heading-line-height: 1.15;
+  --fc4-body-line-height: 1.4;
+}
+
+.fc4-text-component.fc4-line-height-lg {
+  --fc4-heading-line-height: 1.22;
+  --fc4-body-line-height: 1.58;
+}
+
+.fc4-text-component.fc4-line-height-xl {
+  --fc4-heading-line-height: 1.3;
+  --fc4-body-line-height: 1.72;
+}
+
+.fc4-article {
+  --fc4-heading-line-height: 1.22;
+  --fc4-body-line-height: 1.66;
+  --fc4-space-multiplier: 1.2;
+}
+
+.tooltip-trigger {
+  /* style inline-text tooltip trigger */
+  white-space: nowrap;
+  border-bottom: 1px dotted hsl(var(--tz4-color-contrast-high-hsl));
+  cursor: help;
+}
+
+.tooltip {
+  /* tooltip element - created using js */
+  position: absolute;
+  z-index: 5;
+  display: inline-block;
+  padding: var(--tz4-space-2xs) var(--tz4-space-xs);
+  border-radius: 0.25em;
+  max-width: 200px;
+  background-color: hsla(var(--tz4-color-contrast-higher-hsl), 0.98);
+  box-shadow: 0 0.9px 1.5px rgba(0, 0, 0, 0.03),0 3.1px 5.5px rgba(0, 0, 0, 0.08),0 14px 25px rgba(0, 0, 0, 0.12);
+  color: hsl(var(--tz4-color-bg-hsl));
+  font-size: var(--tz4-text-sm);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+.tooltip a {
+  color: inherit;
+  text-decoration: underline;
+}
+@supports ((-webkit-clip-path: inset(50%)) or (clip-path: inset(50%))) {
+  .tooltip::before {
+    /* tooltip triangle  */
+    content: "";
+    position: absolute;
+    background-color: inherit;
+    border: inherit;
+    width: var(--tooltip-triangle-size);
+    height: var(--tooltip-triangle-size);
+    -webkit-clip-path: polygon(0% 0%, 100% 100%, 100% 100%, 0% 100%);
+            clip-path: polygon(0% 0%, 100% 100%, 100% 100%, 0% 100%);
+  }
+}
+
+.tootip:not(.tooltip--sticky) {
+  pointer-events: none;
+}
+
+/* size variations */
+.tooltip--sm {
+  max-width: 150px;
+  font-size: var(--tz4-text-xs);
+  padding: var(--tz4-space-3xs) var(--tz4-space-2xs);
+}
+
+.tooltip--md {
+  max-width: 300px;
+  padding: var(--tz4-space-xs) var(--tz4-space-sm);
+}
+
+.tooltip--lg {
+  max-width: 350px;
+  font-size: var(--tz4-text-base-size);
+  padding: var(--tz4-space-xs) var(--tz4-space-sm);
+}
+
+/* tooltip position */
+.tooltip {
+  /* variable used in JS to proper place tooltip triangle */
+  --tooltip-triangle-translate: 0px;
+}
+
+.tooltip--top::before, .tooltip--bottom::before {
+  left: calc(50% - var(--tooltip-triangle-size) / 2);
+}
+
+.tooltip--top::before {
+  bottom: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(-45deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(-45deg);
+}
+
+.tooltip--bottom::before {
+  top: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(135deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(135deg);
+}
+
+.tooltip--left::before, .tooltip--right::before {
+  top: calc(50% - var(--tooltip-triangle-size) / 2);
+}
+
+.tooltip--left::before {
+  right: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(-135deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(-135deg);
+}
+
+.tooltip--right::before {
+  left: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(45deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(45deg);
+}
+
+.tooltip--is-hidden {
+  /* class used in JS to hide the tooltip element before its top/left positions are set */
+  visibility: hidden;
+  opacity: 0;
+}
+</style>
+
+<script>
+// utility functions
+if(!Util) function Util () {};
+
+Util.setAttributes = function(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+};
+
+// File#: _2_footnotes
+// Usage: codyhouse.co/license
+(function() {
+	var Footnote = function(element) {
+		this.element = element;
+		this.link = this.element.getElementsByClassName('footnotes__back-link')[0];
+		this.contentLink = document.getElementById(this.link.getAttribute('href').replace('#', ''));
+		this.initFootnote();
+	};
+
+	Footnote.prototype.initFootnote = function() {
+		Util.setAttributes(this.contentLink, {
+			'aria-label': 'Footnote: '+this.element.getElementsByClassName('js-footnote__label')[0].textContent,
+			'data-tooltip-class': 'tooltip--lg tooltip--sticky',
+			'data-tooltip-describedby': 'false',
+			'title': this.getFootnoteContent(),
+		});
+		new Tooltip(this.contentLink);
+	};
+
+	Footnote.prototype.getFootnoteContent = function() {
+		var clone = this.element.cloneNode(true);
+		clone.removeChild(clone.getElementsByClassName('footnotes__back-link')[0]);
+		return clone.innerHTML;
+	};
+
+	//initialize the Footnote objects
+	var footnotes = document.getElementsByClassName('js-footnotes__item');
+	if( footnotes.length > 0 ) {
+		for( var i = 0; i < footnotes.length; i++) {
+			(function(i){new Footnote(footnotes[i]);})(i);
+		}
+	}
+}());
+</script>
+
+
+
+Components /
+Tooltip
+
+Theme: 
+default
+Info page
+Framework: 
+No framework
+Copy:
+
+HTML
+
+CSS
+
+JS
+View code
+
+Download
+
+
+
+
+
+
+
+/* -------------------------------- 
+
+File#: _1_tooltip
+Title: Tooltip
+Descr: A popup displaying additional text information
+Usage: codyhouse.co/license
+
+-------------------------------- */
+/* reset */
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+* {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  background-color: hsl(0 0% 100%);
+  font-family: system-ui, sans-serif;
+  color: hsl(230 7% 23%);
+  font-size: 1rem;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  color: hsl(230 13% 9%);
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.0736rem;
+}
+
+h2 {
+  font-size: 1.728rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+ol, ul, menu {
+  list-style: none;
+}
+
+button, input, textarea, select {
+  background-color: transparent;
+  border-radius: 0;
+  color: inherit;
+  line-height: inherit;
+  appearance: none;
+}
+
+textarea {
+  resize: vertical;
+  overflow: auto;
+  vertical-align: top;
+}
+
+a {
+  color: hsl(250 84% 54%);
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+@media (min-width: 64rem) {
+  body {
+    font-size: 1.25rem;
+  }
+
+  h1 {
+    font-size: 3.051rem;
+  }
+
+    h2 {
+    font-size: 2.44rem;
+  }
+
+    h3 {
+    font-size: 1.75rem;
+  }
+
+    h4 {
+    font-size: 1.5625rem;
+  }
+}
+
+/* variables */
+:root {
+  /* colors */
+  --tz4-color-primary-hsl: 250, 84%, 54%;
+  --tz4-color-bg-hsl: 0, 0%, 100%;
+  --tz4-color-contrast-high-hsl: 230, 7%, 23%;
+  --tz4-color-contrast-higher-hsl: 230, 13%, 9%;
+
+  /* spacing */
+  --tz4-space-3xs: 0.25rem;
+  --tz4-space-2xs: 0.375rem;
+  --tz4-space-xs: 0.5rem;
+  --tz4-space-sm: 0.75rem;
+
+  /* typography */
+  --tz4-text-sm: 0.833rem;
+  --tz4-text-xs: 0.694rem;
+}
+
+@media(min-width: 64rem){
+  :root {
+    /* spacing */
+    --tz4-space-3xs: 0.375rem;
+    --tz4-space-2xs: 0.5625rem;
+    --tz4-space-xs: 0.75rem;
+    --tz4-space-sm: 1.125rem;
+
+    /* typography */
+    --tz4-text-sm: 1rem;
+    --tz4-text-xs: 0.8rem;
+  }
+}
+
+/* component */
+:root {
+  --tooltip-triangle-size: 12px;
+}
+
+.tooltip-trigger {
+  /* style inline-text tooltip trigger */
+  white-space: nowrap;
+  border-bottom: 1px dotted hsl(var(--tz4-color-contrast-high-hsl));
+  cursor: help;
+}
+
+.tooltip {
+  /* tooltip element - created using js */
+  position: absolute;
+  z-index: 5;
+  display: inline-block;
+  padding: var(--tz4-space-2xs) var(--tz4-space-xs);
+  border-radius: 0.25em;
+  max-width: 200px;
+  background-color: hsla(var(--tz4-color-contrast-higher-hsl), 0.98);
+  box-shadow: 0 0.9px 1.5px rgba(0, 0, 0, 0.03),0 3.1px 5.5px rgba(0, 0, 0, 0.08),0 14px 25px rgba(0, 0, 0, 0.12);
+  color: hsl(var(--tz4-color-bg-hsl));
+  font-size: var(--tz4-text-sm);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+.tooltip a {
+  color: inherit;
+  text-decoration: underline;
+}
+@supports ((-webkit-clip-path: inset(50%)) or (clip-path: inset(50%))) {
+  .tooltip::before {
+    /* tooltip triangle  */
+    content: "";
+    position: absolute;
+    background-color: inherit;
+    border: inherit;
+    width: var(--tooltip-triangle-size);
+    height: var(--tooltip-triangle-size);
+    -webkit-clip-path: polygon(0% 0%, 100% 100%, 100% 100%, 0% 100%);
+            clip-path: polygon(0% 0%, 100% 100%, 100% 100%, 0% 100%);
+  }
+}
+
+.tootip:not(.tooltip--sticky) {
+  pointer-events: none;
+}
+
+/* size variations */
+.tooltip--sm {
+  max-width: 150px;
+  font-size: var(--tz4-text-xs);
+  padding: var(--tz4-space-3xs) var(--tz4-space-2xs);
+}
+
+.tooltip--md {
+  max-width: 300px;
+  padding: var(--tz4-space-xs) var(--tz4-space-sm);
+}
+
+.tooltip--lg {
+  max-width: 350px;
+  font-size: var(--tz4-text-base-size);
+  padding: var(--tz4-space-xs) var(--tz4-space-sm);
+}
+
+/* tooltip position */
+.tooltip {
+  /* variable used in JS to proper place tooltip triangle */
+  --tooltip-triangle-translate: 0px;
+}
+
+.tooltip--top::before, .tooltip--bottom::before {
+  left: calc(50% - var(--tooltip-triangle-size) / 2);
+}
+
+.tooltip--top::before {
+  bottom: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(-45deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(-45deg);
+}
+
+.tooltip--bottom::before {
+  top: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(135deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(135deg);
+}
+
+.tooltip--left::before, .tooltip--right::before {
+  top: calc(50% - var(--tooltip-triangle-size) / 2);
+}
+
+.tooltip--left::before {
+  right: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(-135deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(-135deg);
+}
+
+.tooltip--right::before {
+  left: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(45deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(45deg);
+}
+
+.tooltip--is-hidden {
+  /* class used in JS to hide the tooltip element before its top/left positions are set */
+  visibility: hidden;
+  opacity: 0;
+}
+
+<style>
+Components /
+Tooltip
+
+Theme: 
+default
+Info page
+Framework: 
+No framework
+Copy:
+
+HTML
+
+CSS
+
+JS
+View code
+
+Download
+
+
+
+
+
+
+
+/* -------------------------------- 
+
+File#: _1_tooltip
+Title: Tooltip
+Descr: A popup displaying additional text information
+Usage: codyhouse.co/license
+
+-------------------------------- */
+/* reset */
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+* {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  background-color: hsl(0 0% 100%);
+  font-family: system-ui, sans-serif;
+  color: hsl(230 7% 23%);
+  font-size: 1rem;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  color: hsl(230 13% 9%);
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.0736rem;
+}
+
+h2 {
+  font-size: 1.728rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+ol, ul, menu {
+  list-style: none;
+}
+
+button, input, textarea, select {
+  background-color: transparent;
+  border-radius: 0;
+  color: inherit;
+  line-height: inherit;
+  appearance: none;
+}
+
+textarea {
+  resize: vertical;
+  overflow: auto;
+  vertical-align: top;
+}
+
+a {
+  color: hsl(250 84% 54%);
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+@media (min-width: 64rem) {
+  body {
+    font-size: 1.25rem;
+  }
+
+  h1 {
+    font-size: 3.051rem;
+  }
+
+    h2 {
+    font-size: 2.44rem;
+  }
+
+    h3 {
+    font-size: 1.75rem;
+  }
+
+    h4 {
+    font-size: 1.5625rem;
+  }
+}
+
+/* variables */
+:root {
+  /* colors */
+  --tz4-color-primary-hsl: 250, 84%, 54%;
+  --tz4-color-bg-hsl: 0, 0%, 100%;
+  --tz4-color-contrast-high-hsl: 230, 7%, 23%;
+  --tz4-color-contrast-higher-hsl: 230, 13%, 9%;
+
+  /* spacing */
+  --tz4-space-3xs: 0.25rem;
+  --tz4-space-2xs: 0.375rem;
+  --tz4-space-xs: 0.5rem;
+  --tz4-space-sm: 0.75rem;
+
+  /* typography */
+  --tz4-text-sm: 0.833rem;
+  --tz4-text-xs: 0.694rem;
+}
+
+@media(min-width: 64rem){
+  :root {
+    /* spacing */
+    --tz4-space-3xs: 0.375rem;
+    --tz4-space-2xs: 0.5625rem;
+    --tz4-space-xs: 0.75rem;
+    --tz4-space-sm: 1.125rem;
+
+    /* typography */
+    --tz4-text-sm: 1rem;
+    --tz4-text-xs: 0.8rem;
+  }
+}
+
+/* component */
+:root {
+  --tooltip-triangle-size: 12px;
+}
+
+.tooltip-trigger {
+  /* style inline-text tooltip trigger */
+  white-space: nowrap;
+  border-bottom: 1px dotted hsl(var(--tz4-color-contrast-high-hsl));
+  cursor: help;
+}
+
+.tooltip {
+  /* tooltip element - created using js */
+  position: absolute;
+  z-index: 5;
+  display: inline-block;
+  padding: var(--tz4-space-2xs) var(--tz4-space-xs);
+  border-radius: 0.25em;
+  max-width: 200px;
+  background-color: hsla(var(--tz4-color-contrast-higher-hsl), 0.98);
+  box-shadow: 0 0.9px 1.5px rgba(0, 0, 0, 0.03),0 3.1px 5.5px rgba(0, 0, 0, 0.08),0 14px 25px rgba(0, 0, 0, 0.12);
+  color: hsl(var(--tz4-color-bg-hsl));
+  font-size: var(--tz4-text-sm);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+.tooltip a {
+  color: inherit;
+  text-decoration: underline;
+}
+@supports ((-webkit-clip-path: inset(50%)) or (clip-path: inset(50%))) {
+  .tooltip::before {
+    /* tooltip triangle  */
+    content: "";
+    position: absolute;
+    background-color: inherit;
+    border: inherit;
+    width: var(--tooltip-triangle-size);
+    height: var(--tooltip-triangle-size);
+    -webkit-clip-path: polygon(0% 0%, 100% 100%, 100% 100%, 0% 100%);
+            clip-path: polygon(0% 0%, 100% 100%, 100% 100%, 0% 100%);
+  }
+}
+
+.tootip:not(.tooltip--sticky) {
+  pointer-events: none;
+}
+
+/* size variations */
+.tooltip--sm {
+  max-width: 150px;
+  font-size: var(--tz4-text-xs);
+  padding: var(--tz4-space-3xs) var(--tz4-space-2xs);
+}
+
+.tooltip--md {
+  max-width: 300px;
+  padding: var(--tz4-space-xs) var(--tz4-space-sm);
+}
+
+.tooltip--lg {
+  max-width: 350px;
+  font-size: var(--tz4-text-base-size);
+  padding: var(--tz4-space-xs) var(--tz4-space-sm);
+}
+
+/* tooltip position */
+.tooltip {
+  /* variable used in JS to proper place tooltip triangle */
+  --tooltip-triangle-translate: 0px;
+}
+
+.tooltip--top::before, .tooltip--bottom::before {
+  left: calc(50% - var(--tooltip-triangle-size) / 2);
+}
+
+.tooltip--top::before {
+  bottom: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(-45deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(-45deg);
+}
+
+.tooltip--bottom::before {
+  top: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(135deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(135deg);
+}
+
+.tooltip--left::before, .tooltip--right::before {
+  top: calc(50% - var(--tooltip-triangle-size) / 2);
+}
+
+.tooltip--left::before {
+  right: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(-135deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(-135deg);
+}
+
+.tooltip--right::before {
+  left: calc(var(--tooltip-triangle-size) * -0.5);
+  -webkit-transform: translateX(var(--tooltip-triangle-translate)) rotate(45deg);
+          transform: translateX(var(--tooltip-triangle-translate)) rotate(45deg);
+}
+
+.tooltip--is-hidden {
+  /* class used in JS to hide the tooltip element before its top/left positions are set */
+  visibility: hidden;
+  opacity: 0;
+}
+
+</style>
+
+
+
+<script>
+Components /
+Tooltip
+
+Theme: 
+default
+Info page
+Framework: 
+No framework
+Copy:
+
+HTML
+
+CSS
+
+JS
+View code
+
+Download
+
+
+
+
+
+
+
+// utility functions
+if(!Util) function Util () {};
+
+Util.addClass = function(el, className) {
+  var classList = className.split(' ');
+  el.classList.add(classList[0]);
+  if (classList.length > 1) Util.addClass(el, classList.slice(1).join(' '));
+};
+
+Util.removeClass = function(el, className) {
+  var classList = className.split(' ');
+  el.classList.remove(classList[0]);
+  if (classList.length > 1) Util.removeClass(el, classList.slice(1).join(' '));
+};
+
+Util.setAttributes = function(el, attrs) {
+  for(var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+};
+
+// File#: _1_tooltip
+// Usage: codyhouse.co/license
+(function() {
+  var Tooltip = function(element) {
+    this.element = element;
+    this.tooltip = false;
+    this.tooltipIntervalId = false;
+    this.tooltipContent = this.element.getAttribute('title');
+    this.tooltipPosition = (this.element.getAttribute('data-tooltip-position')) ? this.element.getAttribute('data-tooltip-position') : 'top';
+    this.tooltipClasses = (this.element.getAttribute('data-tooltip-class')) ? this.element.getAttribute('data-tooltip-class') : false;
+    this.tooltipId = 'js-tooltip-element'; // id of the tooltip element -> trigger will have the same aria-describedby attr
+    // there are cases where you only need the aria-label -> SR do not need to read the tooltip content (e.g., footnotes)
+    this.tooltipDescription = (this.element.getAttribute('data-tooltip-describedby') && this.element.getAttribute('data-tooltip-describedby') == 'false') ? false : true; 
+
+    this.tooltipDelay = this.element.getAttribute('data-tooltip-delay'); // show tooltip after a delay (in ms)
+    if(!this.tooltipDelay) this.tooltipDelay = 300;
+    this.tooltipDelta = parseInt(this.element.getAttribute('data-tooltip-gap')); // distance beetwen tooltip and trigger element (in px)
+    if(isNaN(this.tooltipDelta)) this.tooltipDelta = 10;
+    this.tooltipTriggerHover = false;
+    // tooltp sticky option
+    this.tooltipSticky = (this.tooltipClasses && this.tooltipClasses.indexOf('tooltip--sticky') > -1);
+    this.tooltipHover = false;
+    if(this.tooltipSticky) {
+      this.tooltipHoverInterval = false;
+    }
+    // tooltip triangle - css variable to control its position
+    this.tooltipTriangleVar = '--tooltip-triangle-translate';
+    resetTooltipContent(this);
+    initTooltip(this);
+  };
+
+  function resetTooltipContent(tooltip) {
+    var htmlContent = tooltip.element.getAttribute('data-tooltip-title');
+    if(htmlContent) {
+      tooltip.tooltipContent = htmlContent;
+    }
+  };
+
+  function initTooltip(tooltipObj) {
+    // reset trigger element
+    tooltipObj.element.removeAttribute('title');
+    tooltipObj.element.setAttribute('tabindex', '0');
+    // add event listeners
+    tooltipObj.element.addEventListener('mouseenter', handleEvent.bind(tooltipObj));
+    tooltipObj.element.addEventListener('focus', handleEvent.bind(tooltipObj));
+  };
+
+  function removeTooltipEvents(tooltipObj) {
+    // remove event listeners
+    tooltipObj.element.removeEventListener('mouseleave',  handleEvent.bind(tooltipObj));
+    tooltipObj.element.removeEventListener('blur',  handleEvent.bind(tooltipObj));
+  };
+
+  function handleEvent(event) {
+    // handle events
+    switch(event.type) {
+      case 'mouseenter':
+      case 'focus':
+        showTooltip(this, event);
+        break;
+      case 'mouseleave':
+      case 'blur':
+        checkTooltip(this);
+        break;
+      case 'newContent':
+        changeTooltipContent(this, event);
+        break;
+    }
+  };
+
+  function showTooltip(tooltipObj, event) {
+    // tooltip has already been triggered
+    if(tooltipObj.tooltipIntervalId) return;
+    tooltipObj.tooltipTriggerHover = true;
+    // listen to close events
+    tooltipObj.element.addEventListener('mouseleave', handleEvent.bind(tooltipObj));
+    tooltipObj.element.addEventListener('blur', handleEvent.bind(tooltipObj));
+    // custom event to reset tooltip content
+    tooltipObj.element.addEventListener('newContent', handleEvent.bind(tooltipObj));
+
+    // show tooltip with a delay
+    tooltipObj.tooltipIntervalId = setTimeout(function(){
+      createTooltip(tooltipObj);
+    }, tooltipObj.tooltipDelay);
+  };
+
+  function createTooltip(tooltipObj) {
+    tooltipObj.tooltip = document.getElementById(tooltipObj.tooltipId);
+    
+    if( !tooltipObj.tooltip ) { // tooltip element does not yet exist
+      tooltipObj.tooltip = document.createElement('div');
+      document.body.appendChild(tooltipObj.tooltip);
+    } 
+
+    // remove data-reset attribute that is used when updating tooltip content (newContent custom event)
+    tooltipObj.tooltip.removeAttribute('data-reset');
+    
+    // reset tooltip content/position
+    Util.setAttributes(tooltipObj.tooltip, {'id': tooltipObj.tooltipId, 'class': 'tooltip tooltip--is-hidden js-tooltip', 'role': 'tooltip'});
+    tooltipObj.tooltip.innerHTML = tooltipObj.tooltipContent;
+    if(tooltipObj.tooltipDescription) tooltipObj.element.setAttribute('aria-describedby', tooltipObj.tooltipId);
+    if(tooltipObj.tooltipClasses) Util.addClass(tooltipObj.tooltip, tooltipObj.tooltipClasses);
+    if(tooltipObj.tooltipSticky) Util.addClass(tooltipObj.tooltip, 'tooltip--sticky');
+    placeTooltip(tooltipObj);
+    Util.removeClass(tooltipObj.tooltip, 'tooltip--is-hidden');
+
+    // if tooltip is sticky, listen to mouse events
+    if(!tooltipObj.tooltipSticky) return;
+    tooltipObj.tooltip.addEventListener('mouseenter', function cb(){
+      tooltipObj.tooltipHover = true;
+      if(tooltipObj.tooltipHoverInterval) {
+        clearInterval(tooltipObj.tooltipHoverInterval);
+        tooltipObj.tooltipHoverInterval = false;
+      }
+      tooltipObj.tooltip.removeEventListener('mouseenter', cb);
+      tooltipLeaveEvent(tooltipObj);
+    });
+  };
+
+  function tooltipLeaveEvent(tooltipObj) {
+    tooltipObj.tooltip.addEventListener('mouseleave', function cb(){
+      tooltipObj.tooltipHover = false;
+      tooltipObj.tooltip.removeEventListener('mouseleave', cb);
+      hideTooltip(tooltipObj);
+    });
+  };
+
+  function placeTooltip(tooltipObj) {
+    // set top and left position of the tooltip according to the data-tooltip-position attr of the trigger
+    var dimention = [tooltipObj.tooltip.offsetHeight, tooltipObj.tooltip.offsetWidth],
+      positionTrigger = tooltipObj.element.getBoundingClientRect(),
+      position = [],
+      scrollY = window.scrollY || window.pageYOffset;
+    
+    position['top'] = [ (positionTrigger.top - dimention[0] - tooltipObj.tooltipDelta + scrollY), (positionTrigger.right/2 + positionTrigger.left/2 - dimention[1]/2)];
+    position['bottom'] = [ (positionTrigger.bottom + tooltipObj.tooltipDelta + scrollY), (positionTrigger.right/2 + positionTrigger.left/2 - dimention[1]/2)];
+    position['left'] = [(positionTrigger.top/2 + positionTrigger.bottom/2 - dimention[0]/2 + scrollY), positionTrigger.left - dimention[1] - tooltipObj.tooltipDelta];
+    position['right'] = [(positionTrigger.top/2 + positionTrigger.bottom/2 - dimention[0]/2 + scrollY), positionTrigger.right + tooltipObj.tooltipDelta];
+    
+    var direction = tooltipObj.tooltipPosition;
+    if( direction == 'top' && position['top'][0] < scrollY) direction = 'bottom';
+    else if( direction == 'bottom' && position['bottom'][0] + tooltipObj.tooltipDelta + dimention[0] > scrollY + window.innerHeight) direction = 'top';
+    else if( direction == 'left' && position['left'][1] < 0 )  direction = 'right';
+    else if( direction == 'right' && position['right'][1] + dimention[1] > window.innerWidth ) direction = 'left';
+
+    // reset tooltip triangle translate value
+    tooltipObj.tooltip.style.setProperty(tooltipObj.tooltipTriangleVar, '0px');
+    
+    if(direction == 'top' || direction == 'bottom') {
+      var deltaMarg = 5;
+      if(position[direction][1] < 0 ) {
+        position[direction][1] = deltaMarg;
+        // make sure triangle is at the center of the tooltip trigger
+        tooltipObj.tooltip.style.setProperty(tooltipObj.tooltipTriangleVar, (positionTrigger.left + 0.5*positionTrigger.width - 0.5*dimention[1] - deltaMarg)+'px');
+      }
+      if(position[direction][1] + dimention[1] > window.innerWidth ) {
+        position[direction][1] = window.innerWidth - dimention[1] - deltaMarg;
+        // make sure triangle is at the center of the tooltip trigger
+        tooltipObj.tooltip.style.setProperty(tooltipObj.tooltipTriangleVar, (0.5*dimention[1] - (window.innerWidth - positionTrigger.right) - 0.5*positionTrigger.width + deltaMarg)+'px');
+      }
+    }
+    tooltipObj.tooltip.style.top = position[direction][0]+'px';
+    tooltipObj.tooltip.style.left = position[direction][1]+'px';
+    Util.addClass(tooltipObj.tooltip, 'tooltip--'+direction);
+  };
+
+  function checkTooltip(tooltipObj) {
+    tooltipObj.tooltipTriggerHover = false;
+    if(!tooltipObj.tooltipSticky) hideTooltip(tooltipObj);
+    else {
+      if(tooltipObj.tooltipHover) return;
+      if(tooltipObj.tooltipHoverInterval) return;
+      tooltipObj.tooltipHoverInterval = setTimeout(function(){
+        hideTooltip(tooltipObj); 
+        tooltipObj.tooltipHoverInterval = false;
+      }, 300);
+    }
+  };
+
+  function hideTooltip(tooltipObj) {
+    if(tooltipObj.tooltipHover || tooltipObj.tooltipTriggerHover) return;
+    clearInterval(tooltipObj.tooltipIntervalId);
+    if(tooltipObj.tooltipHoverInterval) {
+      clearInterval(tooltipObj.tooltipHoverInterval);
+      tooltipObj.tooltipHoverInterval = false;
+    }
+    tooltipObj.tooltipIntervalId = false;
+    if(!tooltipObj.tooltip) return;
+    // hide tooltip
+    removeTooltip(tooltipObj);
+    // remove events
+    removeTooltipEvents(tooltipObj);
+  };
+
+  function removeTooltip(tooltipObj) {
+    if(tooltipObj.tooltipContent == tooltipObj.tooltip.innerHTML || tooltipObj.tooltip.getAttribute('data-reset') == 'on') {
+      Util.addClass(tooltipObj.tooltip, 'tooltip--is-hidden');
+      tooltipObj.tooltip.removeAttribute('data-reset');
+    }
+    if(tooltipObj.tooltipDescription) tooltipObj.element.removeAttribute('aria-describedby');
+  };
+
+  function changeTooltipContent(tooltipObj, event) {
+    if(tooltipObj.tooltip && tooltipObj.tooltipTriggerHover && event.detail) {
+      tooltipObj.tooltip.innerHTML = event.detail;
+      tooltipObj.tooltip.setAttribute('data-reset', 'on');
+      placeTooltip(tooltipObj);
+    }
+  };
+
+  window.Tooltip = Tooltip;
+
+  //initialize the Tooltip objects
+  var tooltips = document.getElementsByClassName('js-tooltip-trigger');
+  if( tooltips.length > 0 ) {
+    for( var i = 0; i < tooltips.length; i++) {
+      (function(i){new Tooltip(tooltips[i]);})(i);
+    }
+  }
+}());
+
+</script>
